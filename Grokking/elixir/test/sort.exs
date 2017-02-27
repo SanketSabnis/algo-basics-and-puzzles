@@ -10,4 +10,8 @@ defmodule Grokking.SortTest do
   test "selection sort: it should sort a list of values" do
     assert Sort.selection(@list) == Enum.sort(@list)
   end
+
+  test "quicksort: it should sort a list of values" do
+    assert Sort.quick(@list) == Enum.sort(@list)
+  end
 end
