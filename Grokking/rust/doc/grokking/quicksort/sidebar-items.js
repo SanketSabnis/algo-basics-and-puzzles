@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["sort","The sort function accepts a slice and returns a Vector, and works pretty much like you'd expect a quicksort to work."]]});

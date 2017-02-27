@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["binary_search","The binary_search module implements a binary search algorithm"],["quicksort","This module implements a basic quicksort. It feels memory inefficient but handing references back and forth started to get pretty complicated"],["selection_sort","Selection sort is a simple quadratic sorting algorithm"]]});

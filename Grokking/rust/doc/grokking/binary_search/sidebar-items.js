@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["search","The search function accepts an array slice and element of any type that implements the PartialOrd trait, and returns either `Some(x)` where x is the index at which the element appears in the list, or `None` if it is not found."]]});
