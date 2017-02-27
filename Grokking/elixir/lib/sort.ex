@@ -3,18 +3,13 @@ defmodule Grokking.Sort do
   A module implementing various sorting algorithms
   """
 
-  alias Grokking.Parallel
-
   @spec quick([any]) :: [any]
   def quick([pivot | t]) do
     {left, right} = Enum.split_with(t, fn(x) -> x < pivot end)
     quick(left) ++ [pivot] ++ quick(right)
   end
 
-  def quick([pivot]), do: [pivot]
-
   def quick([]), do: []
-
 
   @spec selection([any]) :: [any]
   def selection(list), do: selection(list, [])
