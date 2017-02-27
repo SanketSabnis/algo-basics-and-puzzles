@@ -1,11 +1,9 @@
 module.exports = ({ entry }) => {
-  const [ fullPath, rel, dir, name, ext ] = entry.match(/(\.\/)?(.*\/)([^\/.]+)(\..+)$/);
-  const relPath = `${dir}${name}${ext}`;
   const config = {
-    entry: `./${relPath}`,
+    entry: `./lib/${entry}.js`,
     output: {
       path: __dirname + '/dist',
-      filename: relPath
+      filename: `${entry}.js`
     },
     node: {
       fs: 'empty'

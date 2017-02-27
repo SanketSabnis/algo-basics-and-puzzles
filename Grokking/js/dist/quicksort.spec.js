@@ -5231,23 +5231,21 @@ function base64DetectIncompleteChar(buffer) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const binaryHelper = (list, val, low, high) => {
-  const mid = (low + high) / 2 | 0;
-  const guess = list[mid];
-  if(low > high)
-    return null;
-  if(guess === val) 
-    return mid;
-  if(guess < val)
-    return binaryHelper(list, val, mid + 1, high);
-  if(guess > val)
-    return binaryHelper(list, val, low, mid - 1);
-};
+const quicksort = (list) => {
+  if(list.length < 2) return list;
+  const pivot = list.length / 2 | 0;
+  const [ left, right ] = list.reduce(
+    ([ left, right ], cur, index) => {
+      if(index === pivot) return [ left, right ];
+      if(cur < list[pivot]) return [ [ ...left, cur ], right ];
+      return [ left, [ ...right, cur ] ];
+    },
+    [ [], [] ]
+  );
+  return [ ...(quicksort(left)), list[pivot], ...(quicksort(right)) ];
+}
 
-const binary = (list, str) =>
-  binaryHelper(list, str, 0, list.length - 1);
-
-/* harmony default export */ __webpack_exports__["a"] = binary;
+/* harmony default export */ __webpack_exports__["a"] = quicksort;
 
 
 /***/ }),
@@ -7947,19 +7945,27 @@ function config (name) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tape__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tape___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tape__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__binary__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quicksort__ = __webpack_require__(25);
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_tape___default()('binary', (assert) => {
-  const list = [2, 4, 8, 16, 32, 64, 128, 256, 312];
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, 2), 0);
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, 32), 4);
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, 312), 8);
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, 0), null);
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, 66), null);
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, 666), null);
-  assert.equal(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__binary__["a" /* default */])(list, -1), null);
+__WEBPACK_IMPORTED_MODULE_0_tape___default()('quicksort', (assert) => {
+  assert.looseEqual(
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__quicksort__["a" /* default */])([ 4, 5, 2, 8, 1 ]),
+    [ 1, 2, 4, 5, 8 ]
+  );
+  assert.looseEqual(
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__quicksort__["a" /* default */])([ 4, 5, 5, 8, 4, 6, 4, 6, 5 ]),
+    [ 4, 4, 4, 5, 5, 5, 6, 6, 8 ]
+  );
+  assert.looseEqual(
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__quicksort__["a" /* default */])([ 1, 2, 3, 4, 5 ]),
+    [ 1, 2, 3, 4, 5 ]
+  );
+  assert.looseEqual(
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__quicksort__["a" /* default */])([ "tank", "nymera", "barb", "grumsh" ]),
+    [ "barb", "grumsh", "nymera", "tank" ]
+  );
 });
 
 
