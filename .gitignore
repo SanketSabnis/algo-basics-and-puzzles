@@ -1,3 +1,4 @@
+Cargo.lock
 *_build/
 *cover/
 *deps/
@@ -5,5 +6,6 @@
 *.ez
 *.beam
 *.DS_Store
-Cargo.lock
+*node_modules*
 target
+.#*.*

@@ -1,0 +1,14 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "tape",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "tape": "^4.6.3",
+    "webpack": "^2.2.1"
+  }
+}
