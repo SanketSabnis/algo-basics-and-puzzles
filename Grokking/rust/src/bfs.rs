@@ -56,11 +56,13 @@ mod tests {
         let mut graph = HashMap::new();
         graph.insert("Chris", vec!["Dave", "Forest"]);
         graph.insert("Forest", vec!["Qian", "Vince", "Dan"]);
-        graph.insert("Dave", vec!["Riley", "Lee", "Maeve"]);
+        graph.insert("Dave", vec!["Riley", "Lee", "Aaron"]);
+        graph.insert("Qian", vec!["Tara", "Kim", "Sanket", "Jeff"]);
+        graph.insert("Sanket", vec!["Spencer", "Maeve"]);
         let (name, depth) = match search("Chris", graph) {
             Some((name, depth)) => (name, depth),
             None => ("", 0)
         };
-        assert_eq!((name, depth), ("Maeve", 1));
+        assert_eq!((name, depth), ("Maeve", 4));
     }
 }
