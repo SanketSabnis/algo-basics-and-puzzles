@@ -52,3 +52,19 @@ graph[["b"]] <- new.env()
 graph[["b"]][["a"]] <- 3
 graph[["b"]][["fin"]] <- 5
 print(dijkstra(graph))
+
+graph <- new.env()
+graph[["start"]] <- new.env()
+graph[["start"]][["lp"]] <- 5
+graph[["start"]][["poster"]] <- 0
+graph[["lp"]] <- new.env()
+graph[["lp"]][["guitar"]] <- 15
+graph[["lp"]][["drums"]] <- 20
+graph[["poster"]] <- new.env()
+graph[["poster"]][["guitar"]] <- 30
+graph[["poster"]][["drums"]] <- 35
+graph[["guitar"]] <- new.env()
+graph[["guitar"]][["fin"]] <- 20
+graph[["drums"]] <- new.env()
+graph[["drums"]][["fin"]] <- 10
+print(dijkstra(graph))
