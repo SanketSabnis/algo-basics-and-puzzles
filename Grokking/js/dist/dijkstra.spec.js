@@ -5260,13 +5260,12 @@ var buildPath = function buildPath(parents, start, end) {
 };
 
 var dijkstra = function dijkstra(graph, start, end) {
-  var cur = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : start;
-  var processed = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
-  var parents = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : Object.keys(graph[start]).reduce(function (parents, neighbor) {
+  var processed = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+  var parents = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : Object.keys(graph[start]).reduce(function (parents, neighbor) {
     parents[neighbor] = start;
     return parents;
   }, {});
-  var costs = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : _extends(_defineProperty({}, end, Infinity), graph[start]);
+  var costs = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : _extends(_defineProperty({}, end, Infinity), graph[start]);
 
   var node = findCheapest(costs, processed);
   // base condition
@@ -5290,7 +5289,7 @@ var dijkstra = function dijkstra(graph, start, end) {
       nextParents = _Object$keys$reduce.nextParents,
       nextCosts = _Object$keys$reduce.nextCosts;
 
-  return dijkstra(graph, start, end, node, [].concat(_toConsumableArray(processed), [node]), nextParents, nextCosts);
+  return dijkstra(graph, start, end, [].concat(_toConsumableArray(processed), [node]), nextParents, nextCosts);
 };
 
 exports.default = dijkstra;

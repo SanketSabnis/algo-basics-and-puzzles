@@ -23,7 +23,6 @@ const dijkstra = (
   graph,
   start,
   end,
-  cur = start,
   processed = [ ],
   parents = Object
     .keys(graph[start])
@@ -56,7 +55,6 @@ const dijkstra = (
     graph,
     start,
     end,
-    node,
     [ ...processed, node ],
     nextParents,
     nextCosts
