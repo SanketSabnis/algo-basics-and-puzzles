@@ -43,4 +43,7 @@ defmodule Grokking.Graph do
 
     {updated_graph, edge}
   end
+
+  def shortest_path(%Graph{}, %{from: from, to: to, label: label, predicate: predicate}) do
+  end
 end

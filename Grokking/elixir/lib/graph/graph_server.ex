@@ -25,8 +25,13 @@ defmodule Grokking.GraphServer do
     {:reply, node, updated_graph}
   end
 
-  def handle_call({:get_graph}, _from, graph) do
+  def handle_call({:graph}, _from, graph) do
     {:reply, graph, graph}
+  end
+
+  def handle_call({:shortest_path, spec}, _from, graph) do
+    r = Graph.shortest_path(graph, spec)
+    {:noreply, r, graph}
   end
 
   ### Client API
@@ -46,8 +51,18 @@ defmodule Grokking.GraphServer do
     GenServer.call(__MODULE__, {:create_node, data})
   end
 
-  def get_graph do
-    GenServer.call(__MODULE__, {:get_graph})
+  def graph do
+    GenServer.call(__MODULE__, {:graph})
+  end
+
+  def shortest_path(from_id, to_id, predicate) do
+    spec = %{
+      from: from_id,
+      predicate: predicate,
+      to: to_id
+    }
+
+    GenServer.call(__MODULE__, {:shortest_path, spec})
   end
 
   def start_link do

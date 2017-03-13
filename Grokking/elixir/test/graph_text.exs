@@ -4,37 +4,50 @@ defmodule Grokking.GraphTest do
   alias Grokking.Node
   use ExUnit.Case, async: true
 
-  test "it should create a graph Struct" do
-    assert %Graph{}
+  # https://github.com/elixir-lang/elixir/blob/master/lib/elixir/lib/access.ex#L63
+  import Access, only: [key!: 1]
+
+  setup _context do
+    {:ok, [graph: %Graph{edges: %{}, nodes: %{}}]}
   end
 
-  test "it should create a node struct" do
+  test "it should create a graph Struct", context do
+    assert %Graph{} = context[:graph]
+  end
+
+  test "it should create a node struct", context do
+    {%Graph{} = graph, %Node{} = node} = Graph.create_node(context[:graph], %{name: "Mikey"})
     assert %Node{
-      edges: %{
-        in: [],
-        out: []
-      },
       id: _,
       data: %{
         name: "Mikey"
       }
-    } = Graph.create_node(%{name: "Mikey"})
+    } = node
+
+    assert get_in(graph, [key!(:nodes), node.id]) == node
   end
 
-  test "it should create an edge between two node structs" do
-    %Node{ id: fromId }= Graph.create_node(%{name: "Mikey"})
-    %Node{ id: toId } = Graph.create_node(%{name: "Chunk"})
+  test "it should create an edge between two node structs", context do
+    {%Graph{} = graph, %Node{} = from} = Graph.create_node(context[:graph], %{name: "Mikey"})
+    {%Graph{} = graph, %Node{} = to} = Graph.create_node(graph, %{name: "Chunk"})
 
-    Graph.create_edge(fromId, toId, "HAS_FRIEND", %{city: "Astoria"})
+    spec = %{
+      data: %{city: "Astoria", state: "Oregon"},
+      from: from.id,
+      label: :HAS_FRIEND,
+      to: to.id
+    }
+
+    {%Graph{} = graph, %Edge{} = edge} = Graph.create_edge(graph, spec)
 
     assert %Edge{
-      data: %{
-        city: "Astoria",
-      },
-      label: "HAS_FRIEND",
-      from: fromId,
+      data: %{city: "Astoria", state: "Oregon"},
+      from: _,
       id: _,
-      to: toId
-    } = Graph.create_edge(fromId, toId, "HAS_FRIEND", %{city: "Astoria"})
+      label: :HAS_FRIEND,
+      to: _
+    } = edge
+
+    assert get_in(graph, [key!(:edges), edge.id]) == edge
   end
 end
