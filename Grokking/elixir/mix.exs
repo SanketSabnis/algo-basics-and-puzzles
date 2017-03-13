@@ -18,7 +18,8 @@ defmodule Grokking.Mixfile do
   defp deps do
     [
       {:credo, "~> 0.6", only: [:dev, :test]},
-      {:dialyxir, "~> 0.4", only: [:dev], runtime: false}
+      {:dialyxir, "~> 0.4", only: [:dev], runtime: false},
+      {:uuid, "~> 1.1"}
     ]
   end
 end
