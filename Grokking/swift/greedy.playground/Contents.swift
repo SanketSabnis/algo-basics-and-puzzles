@@ -14,11 +14,10 @@ let stations: [String: Set<String>] = [
 func greedyStations(_ states_needed: Set<String>,
                     _ stations: [String: Set<String>]) -> Set<String> {
     var stations_added: Set<String> = []
-    var best_station = ""
     var covered_states: Set<String> = []
     while (true) {
         let candidate_stations = Set(stations.keys).subtracting(stations_added)
-        best_station = ""
+        var best_station = ""
         var best_station_value = 0
         for candidate in candidate_stations {
             let candidate_value = stations[candidate]!.intersection(states_needed)
